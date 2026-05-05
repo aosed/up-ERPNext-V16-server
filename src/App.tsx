@@ -263,6 +263,28 @@ export default function App() {
           ]
         }
       ]
+    },
+    {
+      id: 9,
+      title: "اللمسات التشغيلية النهائية",
+      icon: <CheckCircle2 className="w-5 h-5" />,
+      description: "تأمين السيرفر وضمان استمرارية العمل (الـ 5% المتبقية لنجاح المشروع).",
+      content: [
+        {
+          title: "1. الحماية من الاختراق (Fail2Ban)",
+          commands: [
+            { 
+              label: "تثبيت Fail2Ban", 
+              text: "sudo apt install fail2ban -y", 
+              explanation: "أداة ضرورية جداً لحظر أي IP يحاول تخمين كلمات السر بشكل خاطئ متكرر." 
+            }
+          ]
+        },
+        {
+          title: "2. نصائح تقنية وتوصية الهاردوير",
+          commands: []
+        }
+      ]
     }
   ];
 
@@ -423,6 +445,21 @@ export default function App() {
                   </div>
                 </div>
               </div>
+
+              <div className="bg-green-50 border border-green-200 p-8 rounded-2xl">
+                <div className="flex gap-4">
+                  <div className="p-3 bg-green-100 rounded-xl">
+                    <CheckCircle2 className="w-6 h-6 text-green-600" />
+                  </div>
+                  <div>
+                    <h4 className="text-xl font-bold text-green-900 mb-2">النظام جاهز للعمل!</h4>
+                    <p className="text-green-800 leading-relaxed">
+                      لقد قمت بإعدادERPNext V16 بنجاح. الآن يمكنك البدء بإعداد شركتك وتخصيص النظام حسب احتياجاتك.
+                      تذكر مراجعة <span className="font-bold">المرحلة 9</span> للحصول على اللمسات النهائية لضمان استقرار السيرفر.
+                    </p>
+                  </div>
+                </div>
+              </div>
             </motion.div>
           ) : (
             <motion.div
@@ -459,7 +496,7 @@ export default function App() {
                     </>
                   ) : (
                     <>
-                      <Circle className="w-5 h-5 " />
+                      <Circle className="w-5 h-5" />
                       تحديد كمكتمل
                     </>
                   )}
@@ -492,90 +529,96 @@ export default function App() {
                       )}
                     </div>
                     
-                    <div className="space-y-6">
+                    <div className="space-y-8">
                       {section.commands.map((cmd, cIdx) => (
-                        <div key={cIdx} className="space-y-2">
+                        <div key={cIdx} className="space-y-3">
                           {cmd.label && (
                             <div className="flex items-center gap-2 text-xs font-bold text-slate-500 mr-1">
-                              <div className="w-1 h-3 bg-indigo-500 rounded-full"></div>
+                              <div className="w-1.5 h-1.5 bg-indigo-500 rounded-full animate-pulse"></div>
                               {cmd.label}
                             </div>
                           )}
                           <div 
-                            className={`group relative bg-slate-900 rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-all border border-slate-800 ${
-                              copiedIndex === `${sIdx}-${cIdx}` ? 'ring-2 ring-indigo-500/50' : ''
+                            className={`group relative bg-[#0d1117] rounded-xl overflow-hidden shadow-2xl transition-all border border-slate-800/60 ${
+                              copiedIndex === `${sIdx}-${cIdx}` ? 'ring-2 ring-indigo-500/50 border-indigo-500/30' : 'hover:border-slate-700'
                             }`}
-                          >
-                          <div className="flex items-center justify-between px-4 py-2 bg-slate-800/40 border-b border-slate-800/60">
-                            <div className="flex items-center gap-3">
-                              <div className="flex gap-1.5">
-                                <div className="w-2.5 h-2.5 rounded-full bg-red-500/80"></div>
-                                <div className="w-2.5 h-2.5 rounded-full bg-amber-500/80"></div>
-                                <div className="w-2.5 h-2.5 rounded-full bg-green-500/80"></div>
-                              </div>
-                              <span className="text-[10px] text-slate-500 font-mono uppercase tracking-widest mr-2">Bash Console</span>
-                              {cmd.explanation && (
-                                <div className="group/hint relative">
-                                  <HelpCircle className="w-4 h-4 text-slate-400 cursor-help hover:text-indigo-400 transition-colors" />
-                                  <div className="absolute bottom-full right-0 mb-3 w-72 bg-indigo-600 text-white text-xs p-3 rounded-xl shadow-2xl opacity-0 group-hover/hint:opacity-100 transition-all transform translate-y-1 group-hover/hint:translate-y-0 pointer-events-none z-30">
-                                    <p className="font-medium leading-relaxed">{cmd.explanation}</p>
-                                    <div className="absolute top-full right-4 border-[6px] border-transparent border-t-indigo-600" />
-                                  </div>
+                           dir="ltr">
+                            {/* Header */}
+                            <div className="flex items-center justify-between px-4 py-2 bg-slate-900/80 border-b border-slate-800/60">
+                              <div className="flex items-center gap-4">
+                                <div className="flex gap-1.5">
+                                  <div className="w-3 h-3 rounded-full bg-[#ff5f56]"></div>
+                                  <div className="w-3 h-3 rounded-full bg-[#ffbd2e]"></div>
+                                  <div className="w-3 h-3 rounded-full bg-[#27c93f]"></div>
                                 </div>
-                              )}
-                            </div>
-                            
-                            <button
-                              onClick={(e) => {
-                                e.stopPropagation();
-                                handleCopy(cmd.text, `${sIdx}-${cIdx}`);
-                              }}
-                              className={`p-2 rounded-lg transition-all ${
-                                copiedIndex === `${sIdx}-${cIdx}` 
-                                ? 'bg-green-500/20 text-green-400' 
-                                : 'text-slate-500 hover:text-slate-300 hover:bg-slate-800'
-                              }`}
-                              title="نسخ الأمر"
-                            >
-                              {copiedIndex === `${sIdx}-${cIdx}` ? (
-                                <Check className="w-4 h-4" />
-                              ) : (
-                                <Copy className="w-4 h-4" />
-                              )}
-                            </button>
-                          </div>
-
-                          <div 
-                            className="relative cursor-pointer active:bg-slate-800/50 transition-colors"
-                            onClick={() => handleCopy(cmd.text, `${sIdx}-${cIdx}`)}
-                          >
-                            <pre className="p-5 overflow-x-auto command-scrollbar" dir="ltr">
-                              <code className="text-sm font-mono text-indigo-300 leading-relaxed block text-left">
-                                <span className="text-slate-600 mr-3 select-none">$</span>
-                                {cmd.text}
-                              </code>
-                            </pre>
-                            
-                            {/* Copy Success Overlay */}
-                            <AnimatePresence>
-                              {copiedIndex === `${sIdx}-${cIdx}` && (
-                                <motion.div 
-                                  initial={{ opacity: 0 }}
-                                  animate={{ opacity: 1 }}
-                                  exit={{ opacity: 0 }}
-                                  className="absolute inset-0 bg-indigo-500/5 flex items-center justify-center pointer-events-none"
+                                <span className="text-[10px] text-slate-500 font-mono uppercase tracking-widest ml-2">bash — {cmd.label || 'terminal'}</span>
+                              </div>
+                              
+                              <div className="flex items-center gap-2">
+                                {cmd.explanation && (
+                                  <div className="group/hint relative" dir="rtl">
+                                    <HelpCircle className="w-4 h-4 text-slate-500 cursor-help hover:text-indigo-400 transition-colors" />
+                                    <div className="absolute bottom-full right-0 mb-3 w-72 bg-slate-800 text-white text-xs p-3 rounded-xl shadow-2xl opacity-0 group-hover/hint:opacity-100 transition-all transform translate-y-1 group-hover/hint:translate-y-0 pointer-events-none z-30 text-right border border-slate-700">
+                                      <p className="font-medium leading-relaxed">{cmd.explanation}</p>
+                                      <div className="absolute top-full right-4 border-[6px] border-transparent border-t-slate-800" />
+                                    </div>
+                                  </div>
+                                )}
+                                <button
+                                  onClick={(e) => {
+                                    e.stopPropagation();
+                                    handleCopy(cmd.text, `${sIdx}-${cIdx}`);
+                                  }}
+                                  className={`flex items-center gap-2 px-3 py-1 rounded-md text-[10px] font-bold transition-all ${
+                                    copiedIndex === `${sIdx}-${cIdx}` 
+                                    ? 'bg-green-500/20 text-green-400' 
+                                    : 'text-slate-400 hover:text-white hover:bg-slate-800 border border-transparent hover:border-slate-700'
+                                  }`}
                                 >
-                                  <span className="text-[10px] bg-indigo-500 text-white px-2 py-0.5 rounded font-bold uppercase tracking-tighter shadow-lg">تم النسخ</span>
-                                </motion.div>
-                              )}
-                            </AnimatePresence>
+                                  {copiedIndex === `${sIdx}-${cIdx}` ? (
+                                    <><Check className="w-3 h-3" /> COPIED</>
+                                  ) : (
+                                    <><Copy className="w-3 h-3" /> COPY</>
+                                  )}
+                                </button>
+                              </div>
+                            </div>
+
+                            {/* Command Area */}
+                            <div 
+                              className="relative cursor-pointer active:bg-white/5 transition-colors p-5 overflow-x-auto command-scrollbar text-left"
+                              dir="ltr"
+                              onClick={() => handleCopy(cmd.text, `${sIdx}-${cIdx}`)}
+                            >
+                              <div className="flex items-start font-mono text-sm leading-relaxed" style={{ direction: 'ltr' }}>
+                                <span className="text-pink-500 mr-4 select-none shrink-0 font-bold">$</span>
+                                <code className="text-slate-100 whitespace-pre text-left flex-1 font-mono selection:bg-indigo-500/30">
+                                  {cmd.text}
+                                </code>
+                              </div>
+                              
+                              <AnimatePresence>
+                                {copiedIndex === `${sIdx}-${cIdx}` && (
+                                  <motion.div 
+                                    initial={{ opacity: 0, scale: 0.9 }}
+                                    animate={{ opacity: 1, scale: 1 }}
+                                    exit={{ opacity: 0 }}
+                                    className="absolute inset-0 bg-green-500/10 flex items-center justify-center pointer-events-none"
+                                  >
+                                    <div className="bg-green-600 text-white text-[10px] px-3 py-1.5 rounded-full font-bold shadow-2xl flex items-center gap-2">
+                                      <Check className="w-3 h-3" /> تم نسخ الأمر بنجاح
+                                    </div>
+                                  </motion.div>
+                                )}
+                              </AnimatePresence>
+                            </div>
                           </div>
                         </div>
-                      </div>
-                    ))}
-                  </div>
-                </section>
-              ))}
+                      ))}
+                    </div>
+                  </section>
+                ))}
+              </div>
 
                 {activePhase === 7 && (
                   <motion.div 
@@ -608,6 +651,54 @@ export default function App() {
                   </motion.div>
                 )}
 
+                {activePhase === 9 && (
+                  <div className="space-y-8 mt-12">
+                    <div className="grid md:grid-cols-2 gap-6">
+                      <div className="bg-white p-6 rounded-2xl border border-slate-200">
+                        <h4 className="font-bold text-indigo-700 flex items-center gap-2 mb-4">
+                          <Globe className="w-5 h-5" /> إعداد البريد (SMTP)
+                        </h4>
+                        <p className="text-sm text-slate-600 leading-relaxed mb-4">
+                          ERPNext بدون إيميل لا يمكنه إرسال فواتير أو استعادة كلمات السر.
+                        </p>
+                        <ul className="text-xs space-y-2 text-slate-500">
+                          <li>• ابحث عن <span className="font-bold">Email Domain</span> بعد الدخول.</li>
+                          <li>• في Gmail، استخدم <span className="font-bold">App Password</span> حصراً.</li>
+                        </ul>
+                      </div>
+                      <div className="bg-white p-6 rounded-2xl border border-slate-200">
+                        <h4 className="font-bold text-orange-700 flex items-center gap-2 mb-4">
+                          <Settings2 className="w-5 h-5" /> التعريب والضبط
+                        </h4>
+                        <p className="text-sm text-slate-600 leading-relaxed mb-4">
+                          عند الـ Setup Wizard الأول:
+                        </p>
+                        <ul className="text-xs space-y-2 text-slate-500">
+                          <li>• اختر <span className="font-bold">العربية</span> (مدعومة 100%).</li>
+                          <li>• تأكد من دقة <span className="font-bold">المنطقة الزمنية</span> للبصمة والمواعيد.</li>
+                        </ul>
+                      </div>
+                    </div>
+
+                    <div className="bg-indigo-900 text-white p-8 rounded-2xl relative overflow-hidden">
+                      <div className="relative z-10">
+                        <h3 className="text-xl font-extrabold mb-4">التوصية الذهبية للهاردوير ⚡</h3>
+                        <div className="grid md:grid-cols-2 gap-8">
+                          <div className="flex gap-4">
+                            <div className="shrink-0 w-12 h-12 bg-white/10 rounded-full flex items-center justify-center font-bold text-xl">1</div>
+                            <p className="text-sm text-indigo-100 italic">"الشاحن يجب أن يظل موصولاً 24/7. انقطاع الكهرباء هو العدو الأول لقواعد البيانات."</p>
+                          </div>
+                          <div className="flex gap-4">
+                            <div className="shrink-0 w-12 h-12 bg-white/10 rounded-full flex items-center justify-center font-bold text-xl">2</div>
+                            <p className="text-sm text-indigo-100 italic">"وفر تهوية ممتازة. السيرفر يولد حرارة أكبر من التصفح العادي، لا تضعه في مكان مغلق."</p>
+                          </div>
+                        </div>
+                      </div>
+                      <Server className="absolute -bottom-12 -right-12 w-64 h-64 text-white/5" />
+                    </div>
+                  </div>
+                )}
+
                 {/* Navigation buttons */}
                 <div className="flex items-center justify-between pt-12 border-t border-slate-200">
                   <button
@@ -618,11 +709,11 @@ export default function App() {
                     <ChevronLeft className="w-5 h-5 rotate-180" />
                     المرحلة السابقة
                   </button>
-                  {activePhase < 8 ? (
+                  {activePhase < 9 ? (
                     <button
                       onClick={() => {
                         if (!progress.includes(activePhase)) toggleProgress(activePhase);
-                        setActivePhase(prev => Math.min(8, prev + 1));
+                        setActivePhase(prev => Math.min(9, prev + 1));
                       }}
                       className="flex items-center gap-2 px-8 py-3 rounded-xl font-bold bg-indigo-600 text-white shadow-lg shadow-indigo-100 hover:bg-indigo-700 transition-all active:scale-95"
                     >
@@ -639,7 +730,6 @@ export default function App() {
                     </button>
                   )}
                 </div>
-              </div>
             </motion.div>
           )}
         </AnimatePresence>
